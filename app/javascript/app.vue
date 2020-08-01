@@ -8,6 +8,9 @@
         {{title}}
       </div>
     </header>
+    {{issues[0].title}}
+    {{issues[1].title}}
+    {{issues[2].title}}
     <ul>
       <li @click="title= 'test1'">test1</li>
       <li @click="title= 'test2'">test2</li>
@@ -17,11 +20,23 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
   data: function () {
     return {
-      title: "test"
+      title: "test",
+      issues: []
     }
+  },
+
+  mounted: function () {
+    axios.get('/api/v1/issues')
+      .then( response => {
+        console.log(response.data)
+        this.issues = response.data
+      })
+      
   }
 }
 </script>
