@@ -9,9 +9,13 @@
       </div>
     </header>
     <ul>
-      <li @click="title= 'test1'">test1</li>
-      <li @click="title= 'test2'">test2</li>
-      <li @click="title= 'test3'">test3</li>
+      <li @click="listClick">test1
+        <div v-if="isShow">
+          sample
+        </div>
+      </li>
+      <li @click="listClick">test2</li>
+      <li @click="listClick">test3</li>
     </ul>
   </div>
 </template>
@@ -20,8 +24,18 @@
 export default {
   data: function () {
     return {
-      title: "test"
+      title: "test",
+      isShow: false,
+      currentList: 
     }
+  },
+  methods: {
+    listClick: function (event) {
+      // console.log(event)
+      // debugger
+      this.title= event.target.firstChild.data
+      this.isShow=!this.isShow
+    } 
   }
 }
 </script>
