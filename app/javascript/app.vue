@@ -8,11 +8,59 @@
         {{title}}
       </div>
     </header>
-    <ul>
-      <li @click="title= 'test1'">test1</li>
-      <li @click="title= 'test2'">test2</li>
-      <li @click="title= 'test3'">test3</li>
-    </ul>
+    <div class="main">
+      <ul class="parent">
+        <li class="child" @click="title= 'test1'">
+          test1
+          <ul class="parent">
+            <li class="child">
+              child
+              <ul class="parent">
+                <li class="child">
+                  grand_child
+                  <ul class="parent">
+                    <li class="child">
+                      2grand_child
+                      <ul class="parent">
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="child">
+                      2grand_child
+                    </li>
+                    <li class="child">
+                      2grand_child
+                    </li>
+                  </ul>
+                </li>
+                <li class="child">grand_child</li>
+                <li class="child">grand_child</li>
+              </ul>
+            </li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+          </ul>
+        </li>
+        <li class="child" @click="title= 'test2'">test2</li>
+        <li class="child" @click="title= 'test3'">test3</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -49,6 +97,30 @@ export default {
       text-align: center;
       position:absolute;
       left: 0;
+    }
+  }
+
+  .main {
+    width: 100vw;
+    height: calc(100vh - 100px );
+    overflow-x: scroll;
+    .parent{
+      width: 310px;
+      padding: 30px;
+      position: relative;
+      ul {
+        position: absolute;
+        left: 310px;
+        top: 0px;
+      }
+    }
+    .child {
+      width: 250px;
+      height: 50px;
+      line-height: 30px;
+      background-color: red;
+      padding: 10px;
+      margin-bottom: 20px;
     }
   }
 </style>
