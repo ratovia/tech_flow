@@ -10,15 +10,13 @@
     </header>
 
     <div class="search-field">
-      <input class="search-bar" type="text" placeholder="検索バー">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー"> <!--　v-modelでデータマインニング　-->
     </div>
-
-
 
     <ul>
       <li 
         @click="title=issue.title" 
-        v-for="issue in issues" 
+        v-for="issue in filterIssues" 
         :key="issue.id"
       >
         {{ issue.title }}
@@ -27,6 +25,7 @@
       <!-- <li @click="title= 'test1'">{{issues[0]}}</li>
       <li @click="title= 'test2'">{{issues[1]}}</li>
       <li @click="title= 'test3'">{{issues[2]}}</li> -->
+      
     </ul>
   </div>
 </template>
@@ -41,9 +40,21 @@ export default {
         {id: 1, title: "test1"},
         {id: 2, title: "test2"},
         {id: 3, title: "zzzzz"}
-      ]
+      ],
+      inputData: ""
+    }
+  },
+  computed: {
+    filterIssues: function () {
+
+      const result = this.issues.filter((issue) => { //filterはture,falseを返してくれる。つまりあるか、どうかを返却する
+        return issue.title.indexOf(this.inputData) !== -1  //indexOfの戻り値は対象のindex番号　存在しなければ-1を返却　returnでture,falseの結果を返す 
+      })
+      return result //filterの結果：ture,falseをreturnする
     }
   }
+
+
 }
 </script>
 
