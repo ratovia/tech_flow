@@ -8,23 +8,45 @@
         {{title}}
       </div>
     </header>
+
+    <div class="search-field">
+      <input class="search-bar" type="text" placeholder="検索バー">
+    </div>
+
+
+
     <ul>
-      <li @click="title= 'test1'">test1</li>
-      <li @click="title= 'test2'">test2</li>
-      <li @click="title= 'test3'">test3</li>
+      <li 
+        @click="title=issue.title" 
+        v-for="issue in issues" 
+        :key="issue.id"
+      >
+        {{ issue.title }}
+      </li>
+
+      <!-- <li @click="title= 'test1'">{{issues[0]}}</li>
+      <li @click="title= 'test2'">{{issues[1]}}</li>
+      <li @click="title= 'test3'">{{issues[2]}}</li> -->
     </ul>
   </div>
 </template>
+
 
 <script>
 export default {
   data: function () {
     return {
-      title: "test"
+      title: "test",
+      issues: [
+        {id: 1, title: "test1"},
+        {id: 2, title: "test2"},
+        {id: 3, title: "zzzzz"}
+      ]
     }
   }
 }
 </script>
+
 
 <style lang="scss">
   header {
@@ -51,4 +73,25 @@ export default {
       left: 0;
     }
   }
+  .search-field{
+    height: 100px;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    .search-bar{
+    width: 50%;
+    padding: 5px 10px;
+    border: none;
+    border-bottom: 1px solid ;
+    outline: none;
+    transition: all 0.3s;
+    &:focus{
+      width: 60%;
+      padding: 6px 12px;
+      font-size: 22px;
+    }
+    }
+  }
+  
 </style>
