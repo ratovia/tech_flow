@@ -8,60 +8,31 @@
         {{title}}
       </div>
     </header>
-    {{issues[0].title}}
-    {{issues[1].title}}
-    {{issues[2].title}}
     <div class="main">
       <ul class="parent">
-        <li class="child" @click="title= 'test1'">
-          test1
+        <li v-for="issue in issues"  class="child" @click="title= 'test3'" :key="issue.id">
+          {{ issue.title }}
           <ul class="parent">
-            <li class="child">
-              child
+            <li v-for="issue1 in issue.children" class="child" :key="issue1.id">
+              {{ issue1.title }}
               <ul class="parent">
-                <li class="child">
-                  grand_child
+                <li v-for="issue2 in issue1.children" class="child" :key="issue2.id">
+                  {{ issue2.title }}
                   <ul class="parent">
-                    <li class="child">
-                      2grand_child
+                    <li v-for="issue3 in issue2.children" class="child" :key="issue3.id">
+                      {{ issue3.title }}
                       <ul class="parent">
-                        <li class="child">
-                          3grand_child
-                        </li>
-                        <li class="child">
-                          3grand_child
-                        </li>
-                        <li class="child">
-                          3grand_child
-                        </li>
-                        <li class="child">
-                          3grand_child
-                        </li>
-                        <li class="child">
-                          3grand_child
+                        <li v-for="issue4 in issue3.children" class="child" :key="issue4.id">
+                          {{ issue4.title }}
                         </li>
                       </ul>
                     </li>
-                    <li class="child">
-                      2grand_child
-                    </li>
-                    <li class="child">
-                      2grand_child
-                    </li>
                   </ul>
                 </li>
-                <li class="child">grand_child</li>
-                <li class="child">grand_child</li>
               </ul>
             </li>
-            <li class="child">child</li>
-            <li class="child">child</li>
-            <li class="child">child</li>
-            <li class="child">child</li>
           </ul>
         </li>
-        <li class="child" @click="title= 'test2'">test2</li>
-        <li class="child" @click="title= 'test3'">test3</li>
       </ul>
     </div>
   </div>
