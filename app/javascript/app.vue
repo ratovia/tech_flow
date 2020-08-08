@@ -46,7 +46,7 @@ export default {
     listClick: function (event) {
       // console.log(event.target)
       const index = event.target.dataset.index //押した項目（event.tatget）のdivタグに付与しているカスタムデータを取得
-      this._data.isShow = index //isShowにindexを代入
+      this.isShow = index //isShowにindexを代入
       if (index){ 
         this.title = event.target.firstChild.data //titleをthisのtitleに書き換え
       } else{
