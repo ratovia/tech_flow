@@ -8,16 +8,16 @@
         {{title}}
       </div>
     </header>
-    {{issues[0].title}}
+    <!-- {{issues[0].title}}
     {{issues[1].title}}
-    {{issues[2].title}}
+    {{issues[2].title}} -->
     <div class="main">
       <ul class="parent">
         <li class="child" @click="listClick" data-index=1>
           test1
-        <div v-if="isShow == 1" > 
-          1の内容
-        </div>
+          <div v-if="isShow == 1" > 
+            1の内容
+          </div>
           <ul class="parent">
             <li class="child">
               child
@@ -63,12 +63,14 @@
             <li class="child">child</li>
           </ul>
         </li>
-        <li class="child" @click="listClick" data-index=2>test2
+        <li class="child" @click="listClick" data-index=2>
+          test2
           <div v-if="isShow == 2">
             2の内容
           </div>
         </li>
-        <li class="child" @click="listClick" data-index=3>test3
+        <li class="child" @click="listClick" data-index=3>
+          test3
           <div v-if="isShow == 3">
             3の内容
           </div>
@@ -86,16 +88,21 @@ export default {
     return {
       title: "test",
       isShow: null,
-      issues: []
+      issues: [],
+      height: ""
     }
   },
   methods: {
     listClick: function (event) {
-      // console.log(event.target)
       const index = event.target.dataset.index //押した項目（event.tatget）のdivタグに付与しているカスタムデータを取得
       this.isShow = index //isShowにindexを代入
+      const children = Array.from(document.getElementsByClassName("child"))
+      children.forEach( function (child){
+	      child.style.height = "50px";
+      });
       if (index){ 
         this.title = event.target.firstChild.data //titleをthisのtitleに書き換え
+        event.target.style.height = "100px" //高さを仮で100pxとしてやることで下の要素を表示との間を作る。
       } else{
         return false //clickした要素にindexがない場合=中身をクリックした時はtextを取得しない
       }
@@ -114,6 +121,10 @@ export default {
 </script>
 
 <style lang="scss">
+  * {
+  box-sizing: border-box;
+  }
+
   header {
     height: 100px;
     width: 100vw;
@@ -160,6 +171,10 @@ export default {
       background-color: red;
       padding: 10px;
       margin-bottom: 20px;
+      overflow: scroll;
+      div {
+        background-color:lightcoral;
+      }
     }
   }
 </style>
