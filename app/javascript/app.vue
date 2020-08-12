@@ -8,13 +8,13 @@
         {{title}}
       </div>
     </header>
-    {{issues[0].title}}
-    {{issues[1].title}}
-    {{issues[2].title}}
     <div class="main">
       <ul class="parent">
-        <li class="child" @click="title= 'test1'">
+        <li class="child" @click="listClick" data-index=1>
           test1
+          <div v-if="isShow == 1" > 
+            1の内容
+          </div>
           <ul class="parent">
             <li class="child">
               child
@@ -60,8 +60,18 @@
             <li class="child">child</li>
           </ul>
         </li>
-        <li class="child" @click="title= 'test2'">test2</li>
-        <li class="child" @click="title= 'test3'">test3</li>
+        <li class="child" @click="listClick" data-index=2>
+          test2
+          <div v-if="isShow == 2">
+            2の内容
+          </div>
+        </li>
+        <li class="child" @click="listClick" data-index=3>
+          test3
+          <div v-if="isShow == 3">
+            3の内容
+          </div>
+        </li>
       </ul>
     </div>
   </div>
@@ -74,14 +84,26 @@ export default {
   data: function () {
     return {
       title: "test",
-      issues: []
+      isShow: null,
+      issues: [],
+      height: ""
+    }
+  },
+  methods: {
+    listClick: function (event) {
+      const index = event.target.dataset.index 
+      this.isShow = index 
+      if (index){ 
+        this.title = event.target.firstChild.data 
+      } else{
+        return false 
+      }
     }
   },
 
   mounted: function () {
     axios.get('/api/v1/issues')
       .then( response => {
-        console.log(response.data)
         this.issues = response.data
       })
       
@@ -90,6 +112,10 @@ export default {
 </script>
 
 <style lang="scss">
+  * {
+  box-sizing: border-box;
+  }
+
   header {
     height: 100px;
     width: 100vw;
@@ -131,11 +157,16 @@ export default {
     }
     .child {
       width: 250px;
-      height: 50px;
+      min-height: 50px;
       line-height: 30px;
       background-color: red;
       padding: 10px;
       margin-bottom: 20px;
+      overflow: scroll;
+      div {
+        background-color:lightcoral;
+        height:50px;
+      }
     }
   }
 </style>
