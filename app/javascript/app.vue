@@ -87,17 +87,17 @@ export default {
     justify-content: center;
     align-items: center;
     .search-bar{
-    width: 50%;
-    padding: 5px 10px;
-    border: none;
-    border-bottom: 1px solid ;
-    outline: none;
-    transition: all 0.3s;
-    &:focus{
-      width: 60%;
-      padding: 6px 12px;
-      font-size: 22px;
-    }
+      width: 50%;
+      padding: 5px 10px;
+      border: none;
+      border-bottom: 1px solid ;
+      outline: none;
+      transition: all 0.3s;
+      &:focus{
+        width: 60%;
+        padding: 6px 12px;
+        font-size: 22px;
+      }
     }
   }
   
