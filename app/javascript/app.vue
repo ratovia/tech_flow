@@ -8,9 +8,6 @@
         {{title}}
       </div>
     </header>
-    <!-- {{issues[0].title}}
-    {{issues[1].title}}
-    {{issues[2].title}} -->
     <div class="main">
       <ul class="parent">
         <li class="child" @click="listClick" data-index=1>
@@ -94,17 +91,12 @@ export default {
   },
   methods: {
     listClick: function (event) {
-      const index = event.target.dataset.index //押した項目（event.tatget）のdivタグに付与しているカスタムデータを取得
-      this.isShow = index //isShowにindexを代入
-      const children = Array.from(document.getElementsByClassName("child"))
-      children.forEach( function (child){
-	      child.style.height = "50px";
-      });
+      const index = event.target.dataset.index 
+      this.isShow = index 
       if (index){ 
-        this.title = event.target.firstChild.data //titleをthisのtitleに書き換え
-        event.target.style.height = "100px" //高さを仮で100pxとしてやることで下の要素を表示との間を作る。
+        this.title = event.target.firstChild.data 
       } else{
-        return false //clickした要素にindexがない場合=中身をクリックした時はtextを取得しない
+        return false 
       }
     }
   },
@@ -112,7 +104,6 @@ export default {
   mounted: function () {
     axios.get('/api/v1/issues')
       .then( response => {
-        console.log(response.data)
         this.issues = response.data
       })
       
@@ -166,7 +157,7 @@ export default {
     }
     .child {
       width: 250px;
-      height: 50px;
+      min-height: 50px;
       line-height: 30px;
       background-color: red;
       padding: 10px;
@@ -174,6 +165,7 @@ export default {
       overflow: scroll;
       div {
         background-color:lightcoral;
+        height:50px;
       }
     }
   }
