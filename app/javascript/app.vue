@@ -96,7 +96,7 @@ export default {
       if (index){ 
         this.title = event.target.firstChild.data 
       } else{
-        return false 
+        this.title = "test"
       }
     }
   },
