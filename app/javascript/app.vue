@@ -12,8 +12,8 @@
       <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
     </div>
     <div class="main">
-      <ul class="parent" >
-        <li class="child" v-for="issue in issues" :key="issue.id" @click="listClick" :data-index="issue.id"> 
+      <ul class="parent">
+        <li class="child" v-for="issue in issues,filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id"> 
           {{issue.title}}
           <div v-if="isShow == issue.id" > 
             {{issue.content}}
@@ -62,7 +62,7 @@
             <li class="child">child</li>
             <li class="child">child</li>
           </ul>
-        </li>r
+        </li>
       </ul>
     </div>
   </div>
@@ -83,6 +83,7 @@ export default {
   computed: {  
     filterIssues: function () {
       const result = this.issues.filter((issue) => { 
+        console.log(result)
         return issue.title.indexOf(this.inputData) !== -1   
       })
       return result 
