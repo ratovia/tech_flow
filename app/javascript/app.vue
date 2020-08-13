@@ -8,54 +8,140 @@
         {{title}}
       </div>
     </header>
-
     <div class="search-field">
-      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー"> <!--　v-modelでデータマインニング　-->
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
     </div>
-
-    <ul>        
-      <li  
-        @click="title=issue.title" 
-        v-for="issue in filterIssues" 
-        :key="issue.id"
-      >
-        {{ issue.title }}
-      </li>
-
-    </ul>
+    <div class="main">
+      <ul class="parent">
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=1
+        >
+          {{ issue.title }}
+          <div v-if="isShow == 1" > 
+            1の内容
+          </div>
+          <ul class="parent">
+            <li class="child">
+              child
+              <ul class="parent">
+                <li class="child">
+                  grand_child
+                  <ul class="parent">
+                    <li class="child">
+                      2grand_child
+                      <ul class="parent">
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                        <li class="child">
+                          3grand_child
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="child">
+                      2grand_child
+                    </li>
+                    <li class="child">
+                      2grand_child
+                    </li>
+                  </ul>
+                </li>
+                <li class="child">grand_child</li>
+                <li class="child">grand_child</li>
+              </ul>
+            </li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+            <li class="child">child</li>
+          </ul>
+        </li>
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=2
+        >
+          {{ issue.title }}
+          <div v-if="isShow == 2">
+            2の内容
+          </div>
+        </li>
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=3
+        >
+          {{ issue.title }}
+          <div v-if="isShow == 3">
+            3の内容
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
-
 <script>
+const axios = require('axios');
+
 export default {
   data: function () {
     return {
       title: "test",
-      issues: [
-        {id: 1, title: "test1"},
-        {id: 2, title: "test2"},
-        {id: 3, title: "zzzzz"}
-      ],
-      inputData: ""
+      inputData: "",
+      isShow: null,
+      issues: [],
     }
   },
   computed: {  
     filterIssues: function () {
-
       const result = this.issues.filter((issue) => { 
         return issue.title.indexOf(this.inputData) !== -1   
       })
       return result 
     }
+  },
+  methods: {
+    listClick: function (event) {
+      const index = event.target.dataset.index 
+      this.isShow = index 
+      if (index){ 
+        this.title = event.target.firstChild.data 
+      } else{
+        return false 
+      }
+    }
+  },
+  mounted: function () {
+    axios.get('/api/v1/issues')
+      .then( response => {
+        this.issues = response.data
+      } 
   }
-
-
 }
 </script>
 
-
 <style lang="scss">
+  * {
+    box-sizing: border-box;
+  }
   header {
     height: 100px;
     width: 100vw;
@@ -100,5 +186,32 @@ export default {
       }
     }
   }
-  
+  .main {
+    width: 100vw;
+    height: calc(100vh - 100px );
+    overflow-x: scroll;
+    .parent{
+      width: 310px;
+      padding: 30px;
+      position: relative;
+      ul {
+        position: absolute;
+        left: 310px;
+        top: 0px;
+      }
+    }
+    .child {
+      width: 250px;
+      min-height: 50px;
+      line-height: 30px;
+      background-color: red;
+      padding: 10px;
+      margin-bottom: 20px;
+      overflow: scroll;
+      div {
+        background-color:lightcoral;
+        height:50px;
+      }
+    }
+  }
 </style>
