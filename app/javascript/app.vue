@@ -8,10 +8,19 @@
         {{title}}
       </div>
     </header>
+    <div class="search-field">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
+    </div>
     <div class="main">
       <ul class="parent">
-        <li class="child" @click="listClick" data-index=1>
-          test1
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=1
+        >
+          {{ issue.title }}
           <div v-if="isShow == 1" > 
             1の内容
           </div>
@@ -60,14 +69,26 @@
             <li class="child">child</li>
           </ul>
         </li>
-        <li class="child" @click="listClick" data-index=2>
-          test2
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=2
+        >
+          {{ issue.title }}
           <div v-if="isShow == 2">
             2の内容
           </div>
         </li>
-        <li class="child" @click="listClick" data-index=3>
-          test3
+        <li  
+          class="child"
+          @click="listClick"
+          v-for="issue in filterIssues" 
+          :key="issue.id"
+          data-index=3
+        >
+          {{ issue.title }}
           <div v-if="isShow == 3">
             3の内容
           </div>
@@ -84,9 +105,17 @@ export default {
   data: function () {
     return {
       title: "test",
+      inputData: "",
       isShow: null,
       issues: [],
-      height: ""
+    }
+  },
+  computed: {  
+    filterIssues: function () {
+      const result = this.issues.filter((issue) => { 
+        return issue.title.indexOf(this.inputData) !== -1   
+      })
+      return result 
     }
   },
   methods: {
@@ -100,22 +129,19 @@ export default {
       }
     }
   },
-
   mounted: function () {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
-      })
-      
+      } 
   }
 }
 </script>
 
 <style lang="scss">
   * {
-  box-sizing: border-box;
+    box-sizing: border-box;
   }
-
   header {
     height: 100px;
     width: 100vw;
@@ -140,7 +166,26 @@ export default {
       left: 0;
     }
   }
-
+  .search-field{
+    height: 100px;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    .search-bar{
+      width: 50%;
+      padding: 5px 10px;
+      border: none;
+      border-bottom: 1px solid ;
+      outline: none;
+      transition: all 0.3s;
+      &:focus{
+        width: 60%;
+        padding: 6px 12px;
+        font-size: 22px;
+      }
+    }
+  }
   .main {
     width: 100vw;
     height: calc(100vh - 100px );
