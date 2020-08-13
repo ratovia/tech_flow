@@ -9,11 +9,11 @@
       </div>
     </header>
     <div class="main">
-      <ul class="parent">
-        <li class="child" @click="listClick" data-index=1>
-          test1
-          <div v-if="isShow == 1" > 
-            1の内容
+      <ul class="parent" >
+        <li class="child" v-for="issue in issues" :key="issue.id" @click="listClick" :data-index="issue.id"> 
+          {{issue.title}}
+          <div v-if="isShow == issue.id" > 
+            {{issue.content}}
           </div>
           <ul class="parent">
             <li class="child">
@@ -60,18 +60,6 @@
             <li class="child">child</li>
           </ul>
         </li>
-        <li class="child" @click="listClick" data-index=2>
-          test2
-          <div v-if="isShow == 2">
-            2の内容
-          </div>
-        </li>
-        <li class="child" @click="listClick" data-index=3>
-          test3
-          <div v-if="isShow == 3">
-            3の内容
-          </div>
-        </li>
       </ul>
     </div>
   </div>
@@ -86,7 +74,6 @@ export default {
       title: "test",
       isShow: null,
       issues: [],
-      height: ""
     }
   },
   methods: {
@@ -165,7 +152,6 @@ export default {
       overflow: scroll;
       div {
         background-color:lightcoral;
-        height:50px;
       }
     }
   }
