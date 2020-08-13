@@ -93,8 +93,7 @@ export default {
       .then( response => {
         this.issues = response.data
       })
-      
-  }
+  },     
 }
 </script>
 
