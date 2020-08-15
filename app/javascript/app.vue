@@ -83,7 +83,6 @@ export default {
   computed: {  
     filterIssues: function () {
       const result = this.issues.filter((issue) => { 
-        console.log(result)
         return issue.title.indexOf(this.inputData) !== -1   
       })
       return result 
@@ -104,8 +103,7 @@ export default {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
-      } 
-      )
+      })
   }
 }
 </script>
