@@ -12,6 +12,7 @@
       <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
     </div>
     <div class="main">
+
       <ul class="parent">
         <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id">
           {{ issue.title }}
@@ -24,16 +25,7 @@
               <ul class="parent">
                 <li v-for="issue2 in issue1.children" class="child" :key="issue2.id">
                   {{ issue2.title }}
-                  <ul class="parent">
-                    <li v-for="issue3 in issue2.children" class="child" :key="issue3.id">
-                      {{ issue3.title }}
-                      <ul class="parent">
-                        <li v-for="issue4 in issue3.children" class="child" :key="issue4.id">
-                          {{ issue4.title }}
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
+                  <parentul v-bind:title = "issue2.children" ></parentul>
                 </li>
               </ul>
             </li>
@@ -46,6 +38,8 @@
 
 <script>
 const axios = require('axios');
+
+
 
 export default {
   data: function () {
@@ -80,6 +74,9 @@ export default {
       .then( response => {
         this.issues = response.data
       })
+  },
+  components: {
+    Parentul: () =>  import("./ul.vue")
   }
 }
 </script>
