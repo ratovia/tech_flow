@@ -104,8 +104,7 @@ export default {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
-      } 
-      )
+      })
   }
 }
 </script>
@@ -179,7 +178,7 @@ export default {
       background-color: red;
       padding: 10px;
       margin-bottom: 20px;
-      overflow: scroll;
+      overflow: auto;
       div {
         background-color:lightcoral;
       }
