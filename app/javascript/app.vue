@@ -13,16 +13,10 @@
     </div>
     <div class="main">
       <ul class="parent">
-        <li  
-          class="child"
-          @click="listClick"
-          v-for="issue in filterIssues" 
-          :key="issue.id"
-          data-index=1
-        >
-          {{ issue.title }}
-          <div v-if="isShow == 1" > 
-            1の内容
+        <li class="child" v-for="issue in issues,filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id"> 
+          {{issue.title}}
+          <div v-if="isShow == issue.id" > 
+            {{issue.content}}
           </div>
           <ul class="parent">
             <li class="child">
@@ -69,30 +63,6 @@
             <li class="child">child</li>
           </ul>
         </li>
-        <li  
-          class="child"
-          @click="listClick"
-          v-for="issue in filterIssues" 
-          :key="issue.id"
-          data-index=2
-        >
-          {{ issue.title }}
-          <div v-if="isShow == 2">
-            2の内容
-          </div>
-        </li>
-        <li  
-          class="child"
-          @click="listClick"
-          v-for="issue in filterIssues" 
-          :key="issue.id"
-          data-index=3
-        >
-          {{ issue.title }}
-          <div v-if="isShow == 3">
-            3の内容
-          </div>
-        </li>
       </ul>
     </div>
   </div>
@@ -125,7 +95,7 @@ export default {
       if (index){ 
         this.title = event.target.firstChild.data 
       } else{
-        return false 
+        this.title = "test"
       }
     }
   },
@@ -133,7 +103,7 @@ export default {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
-      } 
+      })
   }
 }
 </script>
@@ -207,10 +177,9 @@ export default {
       background-color: red;
       padding: 10px;
       margin-bottom: 20px;
-      overflow: scroll;
+      overflow: auto;
       div {
         background-color:lightcoral;
-        height:50px;
       }
     }
   }
