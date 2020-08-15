@@ -1,3 +1,4 @@
+json.id node.id
 json.title node.title
 json.content node.content
 json.children do
