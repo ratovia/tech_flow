@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <h1 class="logo">
+      <h1 class="logo" id="1">
         TECH FLOW
       </h1>
       <div class="title">
@@ -9,7 +9,7 @@
       </div>
     </header>
     <div class="search-field">
-      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー" id="2">
     </div>
     <div class="main">
       <ul class="parent">
@@ -47,6 +47,9 @@
 <script>
 const axios = require('axios');
 
+
+
+
 export default {
   data: function () {
     return {
@@ -79,6 +82,10 @@ export default {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
+        new LeaderLine(
+          document.getElementById('1'),
+          document.getElementById('2')
+        );
       })
   }
 }
