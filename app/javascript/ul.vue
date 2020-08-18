@@ -1,24 +1,38 @@
 <template>
   <ul class="parent">
-    <li v-for="issue4 in title" class="child" :key="issue4.id">
-      {{ issue4.title }}
-      <parentul v-bind:title= "issue4.children"></parentul>
+    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id">
+      {{ issue.title }}
+      <div v-if="isShow == issue.id" > 
+        {{issue.content}}
+      </div>
+      <parentul v-bind:issue_child= "issue.children"></parentul>
     </li>
   </ul>
 </template>
 
 <script>
-// import Parentul from "./ul.vue"
-
 export default {
-
-  props: {
-    title: Array
+  data: function () {
+    return {
+      isShow: null,
+    }
   },
-
+  methods: {
+    listClick: function (event) {
+      const index = event.target.dataset.index 
+      this.isShow = index 
+      if (index){ 
+        this.title = event.target.firstChild.data 
+      } else{
+        this.title = "test"
+      }
+    }
+  },
+  props: {
+    issue_child: Array
+  },
   components: {
     Parentul: () =>  import("./ul.vue")
-  }
-
+  },
 }
 </script>

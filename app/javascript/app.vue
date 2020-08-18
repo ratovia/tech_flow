@@ -12,24 +12,13 @@
       <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
     </div>
     <div class="main">
-
       <ul class="parent">
         <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id">
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
             {{issue.content}}
           </div>
-          <ul class="parent">
-            <li v-for="issue1 in issue.children" class="child" :key="issue1.id">
-              {{ issue1.title }}
-              <ul class="parent">
-                <li v-for="issue2 in issue1.children" class="child" :key="issue2.id">
-                  {{ issue2.title }}
-                  <parentul v-bind:title = "issue2.children" ></parentul>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <parentul v-bind:issue_child = "issue.children" ></parentul>
         </li>
       </ul>
     </div>
@@ -38,9 +27,6 @@
 
 <script>
 const axios = require('axios');
-
-
-
 export default {
   data: function () {
     return {
@@ -52,8 +38,8 @@ export default {
   },
   computed: {  
     filterIssues: function () {
-      const result = this.issues.filter((issue) => { 
-        return issue.title.indexOf(this.inputData) !== -1   
+      const result = this.issues.filter((issue) => {
+        return issue.title.indexOf(this.inputData) !== -1
       })
       return result 
     }
@@ -77,7 +63,7 @@ export default {
   },
   components: {
     Parentul: () =>  import("./ul.vue")
-  }
+  },
 }
 </script>
 
@@ -134,7 +120,6 @@ export default {
     height: calc(100vh - 100px );
     overflow-x: scroll;
     .parent{
-      width: 310px;
       padding: 30px;
       position: relative;
       ul {
