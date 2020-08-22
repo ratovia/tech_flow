@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <h1 class="logo" id="1">
+      <h1 class="logo">
         TECH FLOW
       </h1>
       <div class="title">
@@ -9,7 +9,7 @@
       </div>
     </header>
     <div class="search-field">
-      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー" id="2">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
     </div>
     <div class="main">
       <ul class="parent">
@@ -63,10 +63,6 @@ export default {
     axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
-        new LeaderLine(
-          document.getElementById('1'),
-          document.getElementById('2')
-        );
       })
   },
   components: {
