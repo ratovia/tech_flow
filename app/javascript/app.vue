@@ -18,26 +18,7 @@
           <div v-if="isShow == issue.id" > 
             {{issue.content}}
           </div>
-          <ul class="parent">
-            <li v-for="issue1 in issue.children" class="child" :key="issue1.id">
-              {{ issue1.title }}
-              <ul class="parent">
-                <li v-for="issue2 in issue1.children" class="child" :key="issue2.id">
-                  {{ issue2.title }}
-                  <ul class="parent">
-                    <li v-for="issue3 in issue2.children" class="child" :key="issue3.id">
-                      {{ issue3.title }}
-                      <ul class="parent">
-                        <li v-for="issue4 in issue3.children" class="child" :key="issue4.id">
-                          {{ issue4.title }}
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <parentul v-bind:issue_child = "issue.children" ></parentul>
         </li>
       </ul>
     </div>
@@ -46,10 +27,6 @@
 
 <script>
 const axios = require('axios');
-
-
-
-
 export default {
   data: function () {
     return {
@@ -61,8 +38,8 @@ export default {
   },
   computed: {  
     filterIssues: function () {
-      const result = this.issues.filter((issue) => { 
-        return issue.title.indexOf(this.inputData) !== -1   
+      const result = this.issues.filter((issue) => {
+        return issue.title.indexOf(this.inputData) !== -1
       })
       return result 
     }
@@ -87,7 +64,10 @@ export default {
           document.getElementById('2')
         );
       })
-  }
+  },
+  components: {
+    Parentul: () =>  import("./ul.vue")
+  },
 }
 </script>
 
@@ -144,7 +124,6 @@ export default {
     height: calc(100vh - 100px );
     overflow-x: scroll;
     .parent{
-      width: 310px;
       padding: 30px;
       position: relative;
       ul {
