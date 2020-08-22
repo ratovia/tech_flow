@@ -11,12 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2020_08_13_014209) do
-  create_table "issues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+
+  create_table "issues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.text "content"
-    t.string "ancestry"
-    t.index ["ancestry"], name: "index_issues_on_ancestry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.text "content"
+    t.index ["ancestry"], name: "index_issues_on_ancestry"
   end
+
 end

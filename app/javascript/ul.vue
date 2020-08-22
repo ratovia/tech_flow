@@ -1,11 +1,11 @@
 <template>
   <ul class="parent">
-    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id">
+    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'child_id_' + issue.id">
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
         {{issue.content}}
+        <parentul v-bind:issue_child= "issue.children"></parentul>
       </div>
-      <parentul v-bind:issue_child= "issue.children"></parentul>
     </li>
   </ul>
 </template>
@@ -28,8 +28,21 @@ export default {
       }
     }
   },
+
+  mounted: function(){
+    const array = ["child_id_11","child_id_7"]
+    array.forEach( id => {
+      new LeaderLine(
+        this.parent_id[0],
+        this.$refs[id][0],
+        {path: 'grid'}
+      );
+    })
+  },
+
   props: {
-    issue_child: Array
+    issue_child: Array,
+    parent_id: Array
   },
   components: {
     Parentul: () =>  import("./ul.vue")

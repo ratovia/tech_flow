@@ -13,10 +13,11 @@
     </div>
     <div class="main">
       <ul class="parent">
-        <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id">
+        <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'parent_id_' + issue.id">
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
             {{issue.content}}
+            <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('parent_id_' + issue.id)" ></parentul>
           </div>
           <parentul v-bind:issue_child = "issue.children" ></parentul>
         </li>
@@ -53,6 +54,9 @@ export default {
       } else{
         this.title = "test"
       }
+    },
+    hello: function(ref) {
+      return this.$refs[ref]
     }
   },
   mounted: function () {
