@@ -17,8 +17,8 @@
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
             {{issue.content}}
+            <parentul v-bind:issue_child = "issue.children" ></parentul>
           </div>
-          <parentul v-bind:issue_child = "issue.children" ></parentul>
         </li>
       </ul>
     </div>

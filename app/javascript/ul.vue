@@ -4,8 +4,8 @@
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
         {{issue.content}}
+        <parentul v-bind:issue_child= "issue.children"></parentul>
       </div>
-      <parentul v-bind:issue_child= "issue.children"></parentul>
     </li>
   </ul>
 </template>
@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     listClick: function (event) {
+      event.stopPropagation()
       const index = event.target.dataset.index 
       this.isShow = index 
       if (index){ 
