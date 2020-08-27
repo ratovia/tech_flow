@@ -132,12 +132,14 @@ export default {
       width: 250px;
       min-height: 50px;
       line-height: 30px;
-      background-color: red;
-      padding: 10px;
+      background-color: lightcoral;
+      padding: 15px 0px 0px;
       margin-bottom: 20px;
       overflow: auto;
       div {
-        background-color:lightcoral;
+        background-color:#fdfdff;
+        padding: 80px;
+        border: 1px solid lightgray
       }
     }
   }
