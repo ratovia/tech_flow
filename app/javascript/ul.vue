@@ -3,7 +3,7 @@
     <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id">
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
-        {{issue.content}}
+        <div class="markdown-body" v-html="compiledMarkdown(issue.content)"></div>
         <parentul v-bind:issue_child= "issue.children"></parentul>
       </div>
     </li>
@@ -27,6 +27,10 @@ export default {
       } else{
         this.title = "test"
       }
+    },
+
+    compiledMarkdown: function(content) {
+      return marked(content, { sanitize: true });
     }
   },
   props: {
