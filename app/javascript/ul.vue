@@ -1,10 +1,10 @@
 <template>
   <ul class="parent">
-    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'child_id_' + issue.id">
+    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'child_id_' + issue.id" >
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
         <div class="markdown-body" v-html="compiledMarkdown(issue.content)"></div>
-        <parentul v-bind:issue_child= "issue.children"></parentul>
+        <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('parent_id_' + issue.id)" v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
       </div>
     </li>
   </ul>
@@ -31,23 +31,28 @@ export default {
 
     compiledMarkdown: function(content) {
       return marked(content, { sanitize: true });
+    },
+    hello: function(ref) {
+      return this.$refs[ref]
     }
   },
 
+
   mounted: function(){
-    const array = ["child_id_11","child_id_7"]
+    const array = this.child_ids.map((id) => {return `child_id_${id}`})
     array.forEach( id => {
       new LeaderLine(
         this.parent_id[0],
         this.$refs[id][0],
-        {path: 'grid'}
+        {startSocket: 'right', endSocket: 'left', path: 'grid'}
       );
     })
   },
 
   props: {
     issue_child: Array,
-    parent_id: Array
+    parent_id: Array,
+    child_ids: Array
   },
   components: {
     Parentul: () =>  import("./ul.vue")
