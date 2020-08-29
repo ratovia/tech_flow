@@ -1,10 +1,10 @@
 <template>
   <ul class="parent">
-    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'child_id_' + issue.id" >
+    <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'issue_id_' + issue.id" >
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
         <div class="markdown-body" v-html="compiledMarkdown(issue.content)"></div>
-        <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('parent_id_' + issue.id)" v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
+        <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('issue_id_' + issue.id)" v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
       </div>
     </li>
   </ul>
@@ -39,7 +39,7 @@ export default {
 
 
   mounted: function(){
-    const array = this.child_ids.map((id) => {return `child_id_${id}`})
+    const array = this.child_ids.map((id) => {return `issue_id_${id}`})
     array.forEach( id => {
       new LeaderLine(
         this.parent_id[0],
