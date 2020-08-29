@@ -56,7 +56,7 @@ export default {
     },
     hello: function(ref) {
       return this.$refs[ref]
-
+    },
     compiledMarkdown: function(content) {
       return marked(content, { sanitize: true });
     }
