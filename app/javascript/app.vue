@@ -130,15 +130,17 @@ export default {
     }
     .child {
       width: 250px;
-      min-height: 50px;
+      min-height: 45px;
       line-height: 30px;
-      background-color: lightcoral;
-      padding: 15px 0px 0px;
+      background-color: #f17d5a;
+      color: white;
+      padding: 8px 0px 0px;
       margin-bottom: 20px;
       overflow: auto;
+      text-align: center;
       div {
         background-color:#fdfdff;
-        padding: 80px;
+        min-height: 200px;
         border: 1px solid lightgray
       }
     }
