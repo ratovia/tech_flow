@@ -16,10 +16,9 @@
         <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'parent_id_' + issue.id">
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
-            {{issue.content}}
-            <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('parent_id_' + issue.id)" ></parentul>
+            <div class="markdown-body" v-html="compiledMarkdown(issue.content)"></div>
+            <parentul v-bind:issue_child = "issue.children" ></parentul>
           </div>
-          <parentul v-bind:issue_child = "issue.children" ></parentul>
         </li>
       </ul>
     </div>
@@ -57,6 +56,9 @@ export default {
     },
     hello: function(ref) {
       return this.$refs[ref]
+
+    compiledMarkdown: function(content) {
+      return marked(content, { sanitize: true });
     }
   },
   mounted: function () {
@@ -134,14 +136,18 @@ export default {
     }
     .child {
       width: 250px;
-      min-height: 50px;
+      min-height: 45px;
       line-height: 30px;
-      background-color: red;
-      padding: 10px;
+      background-color: #f17d5a;
+      color: white;
+      padding: 8px 0px 0px;
       margin-bottom: 20px;
       overflow: auto;
+      text-align: center;
       div {
-        background-color:lightcoral;
+        background-color:#fdfdff;
+        min-height: 200px;
+        border: 1px solid lightgray
       }
     }
   }
