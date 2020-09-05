@@ -15,6 +15,7 @@ export default {
   data: function () {
     return {
       isShow: null,
+      lines: []
     }
   },
   methods: {
@@ -36,19 +37,23 @@ export default {
       return this.$refs[ref]
     }
   },
-
-
-  mounted: function(){
-    const array = this.child_ids.map((id) => {return `issue_id_${id}`})
-    array.forEach( id => {
-      new LeaderLine(
-        this.parent_id[0],
-        this.$refs[id][0],
-        {startSocket: 'right', endSocket: 'left', path: 'grid'}
-      );
-    })
+  
+  updated: function() {
+    this.lines.map( (line) => { line.position() })
   },
 
+  mounted: function() {
+    const array = this.child_ids.map((id) => {return `issue_id_${id}`})
+    array.forEach( id => {
+      this.lines.push(
+        new LeaderLine(
+          this.parent_id[0],
+          this.$refs[id][0],
+          {startSocket: 'right', endSocket: 'left', path: 'grid'}
+        )
+      )
+    })
+  },
   props: {
     issue_child: Array,
     parent_id: Array,
