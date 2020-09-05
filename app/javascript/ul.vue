@@ -16,7 +16,8 @@ export default {
     return {
       isShow: null,
       lines: [],
-      scroll: 0
+      scroll: 0,
+      dom: null
     }
   },
   methods: {
@@ -39,8 +40,7 @@ export default {
     },
 
     calculateScroll: function(){
-      const dom = document.getElementsByClassName("main")[0]
-      this.scroll = dom.scrollLeft;
+      this.scroll = this.dom.scrollLeft;
     }
   },
   
@@ -59,12 +59,11 @@ export default {
         )
       )
     })
-    const dom = document.getElementsByClassName("main")[0]
-    dom.addEventListener('scroll', this.calculateScroll);
+    this.dom = document.getElementsByClassName("main")[0]
+    this.dom.addEventListener('scroll', this.calculateScroll);
   },
   beforeDestroy: function(){ 
     this.lines.forEach( (line) => { line.remove() })
-    // window.removeEventListener('scroll', this.calculateScroll);
   },
   props: {
     issue_child: Array,
