@@ -15,7 +15,8 @@ export default {
   data: function () {
     return {
       isShow: null,
-      lines: []
+      lines: [],
+      scroll: 0
     }
   },
   methods: {
@@ -35,7 +36,11 @@ export default {
     },
     hello: function(ref) {
       return this.$refs[ref]
-    }
+    },
+
+    // calculateScroll: function(){
+    //   this.scroll = window.scrollX;
+    // }
   },
   
   updated: function() {
@@ -53,6 +58,12 @@ export default {
         )
       )
     })
+    // window.addEventListener('scroll', this.calculateScroll);
+    // console.log(this.scroll)
+  },
+  beforeDestroy: function(){ 
+    this.lines.forEach( (line) => { line.remove() })
+    // window.removeEventListener('scroll', this.calculateScroll);
   },
   props: {
     issue_child: Array,
@@ -62,5 +73,12 @@ export default {
   components: {
     Parentul: () =>  import("./ul.vue")
   },
+
+  // watch: {
+  //   scroll: function () {
+  //     console.log("OK")
+  //     this.lines.map( (line) => { line.position() })
+  //   },
+  // }
 }
 </script>
