@@ -38,9 +38,10 @@ export default {
       return this.$refs[ref]
     },
 
-    // calculateScroll: function(){
-    //   this.scroll = window.scrollX;
-    // }
+    calculateScroll: function(){
+      const dom = document.getElementsByClassName("main")[0]
+      this.scroll = dom.scrollLeft;
+    }
   },
   
   updated: function() {
@@ -58,8 +59,8 @@ export default {
         )
       )
     })
-    // window.addEventListener('scroll', this.calculateScroll);
-    // console.log(this.scroll)
+    const dom = document.getElementsByClassName("main")[0]
+    dom.addEventListener('scroll', this.calculateScroll);
   },
   beforeDestroy: function(){ 
     this.lines.forEach( (line) => { line.remove() })
@@ -74,11 +75,10 @@ export default {
     Parentul: () =>  import("./ul.vue")
   },
 
-  // watch: {
-  //   scroll: function () {
-  //     console.log("OK")
-  //     this.lines.map( (line) => { line.position() })
-  //   },
-  // }
+  watch: {
+    scroll: function () {
+      this.lines.map( (line) => { line.position() })
+    },
+  }
 }
 </script>
