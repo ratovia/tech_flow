@@ -16,7 +16,7 @@
         <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'issue_id_' + issue.id">
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
-            <div class="markdown-body" v-html="compiledMarkdown(issue.content)"></div>
+            <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)"></div>
             <parentul 
             v-bind:issue_child = "issue.children" 
             v-bind:parent_id = "hello('issue_id_' + issue.id)" 
@@ -151,6 +151,11 @@ export default {
         background-color:#fdfdff;
         min-height: 200px;
         border: 1px solid lightgray
+      }
+      .issue-detail {
+        padding: 5px;
+        text-align: start;
+        font-size: 0.5em;
       }
     }
   }
