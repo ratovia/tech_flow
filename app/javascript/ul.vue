@@ -39,6 +39,10 @@ export default {
       return this.$refs[ref]
     },
 
+    calcubottomScroll: function(){
+      this.scroll = this.dom.scrollBottom;
+    },
+
     calculateScroll: function(){
       this.scroll = this.dom.scrollLeft;
     }
@@ -61,6 +65,7 @@ export default {
     })
     this.dom = document.getElementsByClassName("main")[0]
     this.dom.addEventListener('scroll', this.calculateScroll);
+    this.dom.addEventListener('scroll', this.calcubottomScroll);
   },
   beforeDestroy: function(){ 
     this.lines.forEach( (line) => { line.remove() })
