@@ -24,8 +24,10 @@ export default {
     listClick: function (event) {
       event.stopPropagation()
       const index = event.target.dataset.index 
-      this.isShow = index 
-      if (index){ 
+      if (this.isShow == index) { 
+        this.isShow = null
+      } else if (index) {
+        this.isShow = index 
         this.title = event.target.firstChild.data 
       } else{
         this.title = "test"
