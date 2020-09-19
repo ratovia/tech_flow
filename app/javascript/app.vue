@@ -82,6 +82,9 @@ export default {
   * {
     box-sizing: border-box;
   }
+  .leader-line{
+    z-index:-1;
+  }
   header {
     height: 100px;
     width: 100vw;
@@ -112,6 +115,7 @@ export default {
     display:flex;
     justify-content: center;
     align-items: center;
+    background-color: lightgray;
     .search-bar{
       width: 50%;
       padding: 5px 10px;
