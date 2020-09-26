@@ -115,7 +115,7 @@ export default {
     display:flex;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
+    background-color: black;
     .search-bar{
       width: 50%;
       padding: 5px 10px;
@@ -134,6 +134,7 @@ export default {
     width: 100vw;
     height: calc(100vh - 100px );
     overflow-x: scroll;
+    background-color:black;
     .parent{
       padding: 30px;
       position: relative;
