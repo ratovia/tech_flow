@@ -23,6 +23,17 @@
             v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
           </div>
         </li>
+        <li class="child" @click="changeDisplay">
+          追加
+          <div class="new_issue_box" :style="{display: showDisplay}">
+            <form v-on:submit.prevent="addIssue" class="issue_form">
+              <input v-model="new_title" name="title" placeholder="title" class="child">
+              <textarea v-model="content" name="content" placeholder="content" class="content_box"></textarea>
+              <input v-model="ancestry" name="ancestry" class="hidden">
+              <button type="submit" name="button" >追加</button>
+            </form>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
@@ -37,6 +48,8 @@ export default {
       inputData: "",
       isShow: null,
       issues: [],
+      issue: {},
+      showDisplay: "none",
     }
   },
   computed: {  
@@ -64,7 +77,12 @@ export default {
     },
     compiledMarkdown: function(content) {
       return marked(content, { sanitize: true });
-    }
+    },
+    changeDisplay: function () {
+      if (this.showDisplay == "none") {
+        this.showDisplay = "block"
+      }
+    },
   },
   mounted: function () {
     axios.get('/api/v1/issues')
@@ -156,7 +174,16 @@ export default {
       div {
         background-color:#fdfdff;
         min-height: 200px;
-        border: 1px solid lightgray
+        border: 1px solid lightgray;
+        .issue_form {
+          margin-top: 10px;
+          .content_box {
+            width: 100%;
+          }
+          .hidden {
+            display: none
+          }
+        }
       }
       .issue-detail {
         padding: 5px;
