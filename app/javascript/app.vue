@@ -27,9 +27,8 @@
           追加
           <div class="new_issue_box" :style="{display: showDisplay}">
             <form v-on:submit.prevent="addIssue" class="issue_form">
-              <input v-model="new_title" name="title" placeholder="title" class="child">
-              <textarea v-model="content" name="content" placeholder="content" class="content_box"></textarea>
-              <input v-model="ancestry" name="ancestry" class="hidden">
+              <input v-model="newTitle" placeholder="title" class="child" >
+              <textarea v-model="content" placeholder="入力してください（Markdown記法使えます）" class="content_box"></textarea>
               <button type="submit" name="button" >追加</button>
             </form>
           </div>
@@ -48,8 +47,9 @@ export default {
       inputData: "",
       isShow: null,
       issues: [],
-      issue: {},
       showDisplay: "none",
+      newTitle: "",
+      content: "",
     }
   },
   computed: {  
@@ -83,6 +83,18 @@ export default {
         this.showDisplay = "block"
       }
     },
+    addIssue: function () {
+      axios.post('/api/v1/issues', {
+        title: this.newTitle,
+        content: this.content,
+      })
+      .then( response => {
+        this.issues = response.data
+        this.newTitle = ""
+        this.content = ""
+        this.showDisplay = "none"
+      })
+    }
   },
   mounted: function () {
     axios.get('/api/v1/issues')
@@ -180,8 +192,8 @@ export default {
           .content_box {
             width: 100%;
           }
-          .hidden {
-            display: none
+          input::placeholder {
+            color: white;
           }
         }
       }

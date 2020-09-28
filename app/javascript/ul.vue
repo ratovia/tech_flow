@@ -7,7 +7,9 @@
         <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('issue_id_' + issue.id)" v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
       </div>
     </li>
-    <li class="child"> 追加 </li>
+    <li class="child">
+      追加
+    </li>
   </ul>
 </template>
 
