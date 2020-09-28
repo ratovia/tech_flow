@@ -17,7 +17,7 @@ export default {
       isShow: null,
       lines: [],
       scroll: 0,
-      dom: null
+      dom: null,
     }
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
   components: {
     Parentul: () =>  import("./ul.vue")
   },
-
+  
   watch: {
     scroll: function () {
       this.lines.map( (line) => { line.position() })

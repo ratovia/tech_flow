@@ -9,7 +9,7 @@
       </div>
     </header>
     <div class="search-field">
-      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー" @input="search" id="search">
     </div>
     <div class="main">
       <ul class="parent">
@@ -42,7 +42,8 @@ export default {
   computed: {  
     filterIssues: function () {
       const result = this.issues.filter((issue) => {
-        return issue.title.indexOf(this.inputData) !== -1
+        return issue.content.indexOf(this.inputData) !== -1 ||
+        issue.title.indexOf(this.inputData) !== -1
       })
       return result 
     }
@@ -64,7 +65,18 @@ export default {
     },
     compiledMarkdown: function(content) {
       return marked(content, { sanitize: true });
-    }
+    },
+    search: function(){
+      let input = document.getElementById("search").value;
+      axios.get('/api/v1/issues/search',{
+        params: {
+          keyword: input
+        }
+      })
+        .then( response => {
+        this.issues = response.data
+      })
+    },
   },
   mounted: function () {
     axios.get('/api/v1/issues')
