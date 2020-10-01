@@ -83,7 +83,7 @@ export default {
     box-sizing: border-box;
   }
   .leader-line{
-    z-index:-1;
+    z-index:2;
   }
   header {
     height: 100px;
