@@ -83,7 +83,6 @@ export default {
     box-sizing: border-box;
   }
   .leader-line{
-    z-index:2;
   }
   header {
     height: 100px;
@@ -116,6 +115,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: black;
+    z-index: 20;
     .search-bar{
       width: 50%;
       padding: 5px 10px;
@@ -132,7 +132,7 @@ export default {
   }
   .main {
     width: 100vw;
-    height: calc(100vh - 100px );
+    height: calc(100vh - 000px );
     overflow-x: scroll;
     background-color:black;
     .parent{
