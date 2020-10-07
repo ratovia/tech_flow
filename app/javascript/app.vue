@@ -18,8 +18,10 @@
           <div v-if="isShow == issue.id" > 
             <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)"></div>
             <parentul 
-            v-bind:issue_child = "issue.children" 
-            v-bind:parent_id = "hello('issue_id_' + issue.id)" 
+            v-on:addIssues = "fetchIssues"
+            v-bind:issue_child = "issue.children"
+            v-bind:parent_id = "hello('issue_id_' + issue.id)"
+            v-bind:ancestry = "issue.id"
             v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
           </div>
         </li>
@@ -94,13 +96,16 @@ export default {
         this.content = ""
         this.showDisplay = "none"
       })
-    }
-  },
-  mounted: function () {
-    axios.get('/api/v1/issues')
+    },
+    fetchIssues : function () {
+      axios.get('/api/v1/issues')
       .then( response => {
         this.issues = response.data
       })
+    } 
+  },
+  mounted: function () {
+    this.fetchIssues()
   },
   components: {
     Parentul: () =>  import("./ul.vue")
