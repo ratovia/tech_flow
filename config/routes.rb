@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :issues, only: [:index] , defaults: { format: "json" } do
         get :search , on: :collection, defaults: { format: "json" }
+        get :get_parent , on: :collection, defaults: { format: "json" }
       end
     end
   end
