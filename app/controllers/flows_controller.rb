@@ -18,6 +18,19 @@ class FlowsController < ApplicationController
     redirect_to root_path
   end
 
+  def edit
+    @issue = Issue.find(params[:id])
+  end
+
+  def update
+    @issue = Issue.find(params[:id])
+    if @issue.ancestry == nil
+      @issue.update(title: issue_params[:title], content: issue_params[:content])
+    end
+    @issue.update(issue_params)
+    redirect_to root_path
+  end
+
   private
 
   def issue_params
