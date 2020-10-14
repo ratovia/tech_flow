@@ -26,8 +26,9 @@ class FlowsController < ApplicationController
     @issue = Issue.find(params[:id])
     if @issue.ancestry == nil
       @issue.update(title: issue_params[:title], content: issue_params[:content])
+    else
+      @issue.update(issue_params)
     end
-    @issue.update(issue_params)
     redirect_to root_path
   end
 
