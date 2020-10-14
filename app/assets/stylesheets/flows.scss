@@ -1,3 +1,35 @@
-// Place all the styles related to the flows controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.issue_form {
+  height: 100%;
+  width: 100%;
+  .title_box {
+    height: 100px;
+    width: 800px;
+    margin: auto;
+    .title {
+      height: 100%;
+      width: 100%;
+      background-color: #f17d5a;
+    }
+  }
+  .content_box {
+    height: 500px;
+    width: 800px;
+    margin: auto;
+    .content {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .submit_btn {
+    height: 50px;
+    width: 800px;
+    margin: auto;
+    margin-top: 20px;
+    .submit {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+
