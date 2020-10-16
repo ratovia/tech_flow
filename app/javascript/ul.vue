@@ -2,7 +2,6 @@
   <ul class="parent">
     <li v-for="issue in issue_child" class="child" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'issue_id_' + issue.id" >
       {{ issue.title }}
-      <a v-bind:href="'/flows/' + issue.id + '/edit'">編集</a>
       <div v-if="isShow == issue.id" > 
         <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)"></div>
         <parentul
@@ -12,6 +11,7 @@
         v-bind:issue_id = "issue.id"
         ></parentul>
       </div>
+      <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
     </li>
     <li class="child" >
       <a v-bind:href="'/flows/new?parent_id=' + this.issue_id">追加</a>
