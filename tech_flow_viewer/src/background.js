@@ -75,7 +75,6 @@ app.on('ready', async () => {
     }
   }
   createWindow()
-  // 'CommandOrControl+X' ショートカットのリスナーを登録します。
   const ret = globalShortcut.register('Ctrl+T', () => {
     console.log('CommandOrControl+X is pressed')
     if (win.isVisible()){
@@ -86,20 +85,6 @@ app.on('ready', async () => {
   })
 })
 
-// app.whenReady().then(() => {
-//   // 'CommandOrControl+X' ショートカットのリスナーを登録します。
-//   const ret = globalShortcut.register('CommandOrControl+X', () => {
-//     console.log('CommandOrControl+X is pressed')
-//   })
-
-//   if (!ret) {
-//     console.log('registration failed')
-//   }
-
-//   // ショートカットが登録されているかどうかをチェックします。
-//   console.log(globalShortcut.isRegistered('CommandOrControl+X'))
-// })
-// Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
     process.on('message', (data) => {
