@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, globalShortcut} from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -46,6 +46,7 @@ function createWindow() {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+  globalShortcut.unregister('Ctrl+T')
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -74,8 +75,30 @@ app.on('ready', async () => {
     }
   }
   createWindow()
+  // 'CommandOrControl+X' ショートカットのリスナーを登録します。
+  const ret = globalShortcut.register('Ctrl+T', () => {
+    console.log('CommandOrControl+X is pressed')
+    if (win.isVisible()){
+      win.hide()
+    } else {
+      win.show()
+    }
+  })
 })
 
+// app.whenReady().then(() => {
+//   // 'CommandOrControl+X' ショートカットのリスナーを登録します。
+//   const ret = globalShortcut.register('CommandOrControl+X', () => {
+//     console.log('CommandOrControl+X is pressed')
+//   })
+
+//   if (!ret) {
+//     console.log('registration failed')
+//   }
+
+//   // ショートカットが登録されているかどうかをチェックします。
+//   console.log(globalShortcut.isRegistered('CommandOrControl+X'))
+// })
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
