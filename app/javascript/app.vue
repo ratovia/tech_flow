@@ -20,14 +20,8 @@
             <parentul 
             v-bind:issue_child = "issue.children" 
             v-bind:parent_id = "hello('issue_id_' + issue.id)" 
-            v-bind:child_ids="issue.children.map((child) => {return child.id}) "
-            v-bind:issue_id = "issue.id"
-            ></parentul>
+            v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
           </div>
-          <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
-        </li>
-        <li class="child">
-          <a href="/flows/new" >追加</a>
         </li>
       </ul>
     </div>
@@ -169,10 +163,6 @@ export default {
         text-align: start;
         font-size: 0.5em;
       }
-    }
-    a {
-      text-decoration: none;
-      color: white;
     }
   }
 </style>
