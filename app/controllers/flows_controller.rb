@@ -14,6 +14,7 @@ class FlowsController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @issue.ancestry = nil if @issue.ancestry == ""
+    @issue.build_article(article_params)
     @issue.save
     redirect_to root_path
   end
@@ -24,17 +25,17 @@ class FlowsController < ApplicationController
 
   def update
     @issue = Issue.find(params[:id])
-    if @issue.ancestry == nil
-      @issue.update(title: issue_params[:title], content: issue_params[:content])
-    else
-      @issue.update(issue_params)
-    end
+    @issue.article.update(article_params)
     redirect_to root_path
   end
 
   private
 
   def issue_params
-    params.require(:issue).permit(:title, :content, :ancestry)
+    params.require(:issue).permit(:ancestry)
+  end
+
+  def article_params
+    params.require(:issue).require(:article).permit(:title, :content)
   end
 end
