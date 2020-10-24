@@ -1,13 +1,5 @@
 <template>
-  <div id="app">
-    <header>
-      <h1 class="logo">
-        TECH FLOW
-      </h1>
-      <div class="title">
-        {{title}}
-      </div>
-    </header>
+  <div class="app" id="app">
     <div class="search-field">
       <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー" @input="search">
     </div>
@@ -33,7 +25,13 @@
         </li>
       </ul>
     </div>
+    <div class="logo">
+        <h1 class="logo-title">
+          TECH FLOW
+        </h1>
+      </div>
   </div>
+  
 </template>
 
 <script>
@@ -109,32 +107,21 @@ export default {
   * {
     box-sizing: border-box;
   }
-  .leader-line{
-    z-index:-1;
+  .app{
+    background-color: black;
   }
-  header {
-    height: 100px;
-    width: 100vw;
-    background-color: rgb(77, 70, 70);
-    display: flex;
+  .logo{
     position: relative;
-    padding: 0px 20px;
-    .logo {
+  }
+  .logo-title{
       color: rgb(42, 218, 174);
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 100px;
-    }
-    .title {
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 100px;
-      width: 100vw;
-      text-align: center;
-      position:absolute;
-      left: 0;
-    }
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
   }
   .search-field{
     height: 100px;
@@ -142,7 +129,8 @@ export default {
     display:flex;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
+    background-color: black;
+    z-index: 20;
     .search-bar{
       width: 50%;
       padding: 5px 10px;
@@ -159,8 +147,9 @@ export default {
   }
   .main {
     width: 100vw;
-    height: calc(100vh - 100px );
+    height: calc(100vh - 000px );
     overflow-x: scroll;
+    background-color:black;
     .parent{
       padding: 30px;
       position: relative;
