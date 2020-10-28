@@ -20,7 +20,6 @@ function createWindow() {
     width: 1000,
     height: 1200,
     opacity: 0.8,
-    transparent: true,
     webPreferences: {
       webviewTag: true,
       // Use pluginOptions.nodeIntegration, leave this alone

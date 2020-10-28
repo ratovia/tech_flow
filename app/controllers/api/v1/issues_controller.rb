@@ -7,12 +7,8 @@ class Api::V1::IssuesController < ApplicationController
     if params[:keyword] == nil || params[:keyword] == ""
       @issues = Issue.where(ancestry: nil)
     else
-      @issues = []
-      Article.where(['content LIKE ?', "%#{params[:keyword]}%"]).each do |article|
-        @issues << article.issues
-      end
-      Article.where(['title LIKE ?', "%#{params[:keyword]}%"]).each do |article|
-        @issues << article.issues
+      @issues = Article.where(['content LIKE ? OR title LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%"]).map do |article|
+        article.issues
       end
       @issues.flatten!
     end
