@@ -4,8 +4,17 @@
       {{ issue.title }}
       <div v-if="isShow == issue.id" > 
         <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)"></div>
-        <parentul v-bind:issue_child = "issue.children" v-bind:parent_id = "hello('issue_id_' + issue.id)" v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
+        <parentul
+        v-bind:issue_child = "issue.children"
+        v-bind:parent_id = "hello('issue_id_' + issue.id)"
+        v-bind:child_ids="issue.children.map((child) => {return child.id}) "
+        v-bind:issue_id = "issue.id"
+        ></parentul>
       </div>
+      <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
+    </li>
+    <li class="child" >
+      <a v-bind:href="'/flows/new?parent_id=' + this.issue_id">追加</a>
     </li>
   </ul>
 </template>
@@ -17,7 +26,7 @@ export default {
       isShow: null,
       lines: [],
       scroll: 0,
-      dom: null
+      dom: null,
     }
   },
   methods: {
@@ -75,12 +84,13 @@ export default {
   props: {
     issue_child: Array,
     parent_id: Array,
-    child_ids: Array
+    child_ids: Array,
+    issue_id: Number
   },
   components: {
     Parentul: () =>  import("./ul.vue")
   },
-
+  
   watch: {
     scroll: function () {
       this.lines.map( (line) => { line.position() })

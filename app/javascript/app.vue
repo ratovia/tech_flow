@@ -1,31 +1,37 @@
 <template>
-  <div id="app">
-    <header>
-      <h1 class="logo">
-        TECH FLOW
-      </h1>
-      <div class="title">
-        {{title}}
-      </div>
-    </header>
+  <div class="app" id="app">
     <div class="search-field">
-      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー">
+      <input v-model="inputData" class="search-bar" type="text" placeholder="検索バー" @input="search">
     </div>
     <div class="main">
       <ul class="parent">
         <li class="child" v-for="issue in filterIssues" :key="issue.id" @click="listClick" :data-index="issue.id" v-bind:ref="'issue_id_' + issue.id">
           {{ issue.title }}
           <div v-if="isShow == issue.id" > 
-            <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)"></div>
+            <div class="markdown-body issue-detail" v-html="compiledMarkdown(issue.content)" @click="back">
+            </div>
+            <span @click="back" id="back">前に戻る</span>
             <parentul 
             v-bind:issue_child = "issue.children" 
             v-bind:parent_id = "hello('issue_id_' + issue.id)" 
-            v-bind:child_ids="issue.children.map((child) => {return child.id}) "></parentul>
+            v-bind:child_ids="issue.children.map((child) => {return child.id}) "
+            v-bind:issue_id = "issue.id"
+            ></parentul>
           </div>
+          <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
+        </li>
+        <li class="child">
+          <a href="/flows/new" >追加</a>
         </li>
       </ul>
     </div>
+    <div class="logo">
+        <h1 class="logo-title">
+          TECH FLOW
+        </h1>
+      </div>
   </div>
+  
 </template>
 
 <script>
@@ -41,10 +47,7 @@ export default {
   },
   computed: {  
     filterIssues: function () {
-      const result = this.issues.filter((issue) => {
-        return issue.title.indexOf(this.inputData) !== -1
-      })
-      return result 
+      return this.issues
     }
   },
   methods: {
@@ -64,7 +67,29 @@ export default {
     },
     compiledMarkdown: function(content) {
       return marked(content, { sanitize: true });
-    }
+    },
+    search: function(){
+      const input = this.inputData;
+      axios.get('/api/v1/issues/search',{
+        params: {
+          keyword: input
+        }
+      })
+      .then( response => {
+        this.issues = response.data
+      })
+    },
+    back: function(){
+      let num = this.isShow
+      axios.get('/api/v1/issues/get_parent',{
+        params: {
+          keyword: num
+        }
+      })
+      .then( response => {
+        this.issues = response.data
+      })
+    },
   },
   mounted: function () {
     axios.get('/api/v1/issues')
@@ -82,32 +107,21 @@ export default {
   * {
     box-sizing: border-box;
   }
-  .leader-line{
-    z-index:-1;
+  .app{
+    background-color: black;
   }
-  header {
-    height: 100px;
-    width: 100vw;
-    background-color: rgb(77, 70, 70);
-    display: flex;
+  .logo{
     position: relative;
-    padding: 0px 20px;
-    .logo {
+  }
+  .logo-title{
       color: rgb(42, 218, 174);
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 100px;
-    }
-    .title {
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 100px;
-      width: 100vw;
-      text-align: center;
-      position:absolute;
-      left: 0;
-    }
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
   }
   .search-field{
     height: 100px;
@@ -115,7 +129,8 @@ export default {
     display:flex;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
+    background-color: black;
+    z-index: 20;
     .search-bar{
       width: 50%;
       padding: 5px 10px;
@@ -132,8 +147,9 @@ export default {
   }
   .main {
     width: 100vw;
-    height: calc(100vh - 100px );
+    height: calc(100vh - 000px );
     overflow-x: scroll;
+    background-color:black;
     .parent{
       padding: 30px;
       position: relative;
@@ -161,8 +177,16 @@ export default {
       .issue-detail {
         padding: 5px;
         text-align: start;
-        font-size: 0.5em;
+        font-size: 0.8em;
       }
+      #back{
+        color:black;
+        font-size: 0.8em;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: white;
     }
   }
 </style>

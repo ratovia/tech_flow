@@ -1,0 +1,17 @@
+<div class="issue_form">
+  <%= form_with model: @issue, url: flows_path, local: true do |f| %>
+    <%= f.fields_for :article do |i| %>
+      <div class="title_box">
+        <%= i.text_area :title, class: "title", placeholder:"title" %>
+      </div>
+      <div class="content_box">
+        <%= i.text_area :content, class: "content", placeholder:"マークダウン記述使えます" %>
+      </div>
+    <% end %>
+    <%= f.hidden_field :ancestry%>
+    <div class="submit_btn">
+      <%= f.submit class: "submit", value: "作成する" %>
+    </div>
+    <%= link_to "戻る", root_path, data: {"turbolinks" => false} %>
+  <% end %>
+</div>
