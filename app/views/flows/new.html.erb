@@ -5,7 +5,9 @@
         <%= i.text_area :title, class: "title", placeholder:"title" %>
       </div>
       <div class="content_box">
-        <%= i.text_area :content, class: "content", placeholder:"マークダウン記述使えます" %>
+        <%# <%= i.text_area :content, class: "content", placeholder:"マークダウン記述使えます" %>
+        <textarea name="issue[article[content]]" class="content" v-model='input' placeholder="マークダウン記述使えます"></textarea>
+        <div v-html='input | marked' class="abc markdown-body"></div>
       </div>
     <% end %>
     <%= f.hidden_field :ancestry%>
@@ -15,3 +17,17 @@
     <%= link_to "戻る", root_path, data: {"turbolinks" => false} %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  window.onload = function() {
+    new Vue({
+      el: '.content_box',
+      data: {
+        input: '',
+      },
+      filters: {
+        marked: marked,
+      },
+    });
+  };
+</script>
