@@ -41,6 +41,14 @@ header {
       overflow: scroll;
       margin-right:10px;
     }
+    .content_mark{
+      height:100%;
+      width:50%;
+      border: solid 1px black;
+      padding:15px;
+      overflow: scroll;
+      margin-left:10px;
+    }
   }
   .submit_btn {
     height: 50px;
@@ -53,14 +61,3 @@ header {
     }
   }
 }
-
-.abc{
-  height:100%;
-  width:50%;
-  border: solid 1px black;
-  padding:15px;
-  overflow: scroll;
-  margin-left:10px;
-}
-
-
