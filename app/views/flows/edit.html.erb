@@ -7,7 +7,7 @@
       <div class="content_box">
         <%# <%= i.text_area :content, class: "content", placeholder:"マークダウン記述使えます" %>
         <textarea name="issue[article[content]]" class="content" v-model='input' placeholder="マークダウン記述使えます"></textarea>
-        <div v-html='input | marked' class="content_mark markdown-body"></div>
+        <div v-html='input | mark' class="content_mark markdown-body"></div>
       </div>
     <% end %>
     <%= f.hidden_field :ancestry%>
@@ -23,10 +23,10 @@
     new Vue({
       el: '.content_box',
       data: {
-        input: '<%== j @issue.article.content %>',
+        input: '<%= j @issue.article.content %>',
       },
       filters: {
-        marked: marked,
+        mark: marked,
       },
     });
   };
