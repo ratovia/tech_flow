@@ -11,7 +11,10 @@
         v-bind:issue_id = "issue.id"
         ></parentul>
       </div>
+      <p class="link">
       <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
+      <a v-bind:href="'/flows/' + issue.id " v-if="isShow == issue.id" data-method="delete" data-confirm="削除しますか？【注意】この先のフローも削除されます" >削除</a>
+      </p>
     </li>
     <li class="child" >
       <a v-bind:href="'/flows/new?parent_id=' + this.issue_id">追加</a>
