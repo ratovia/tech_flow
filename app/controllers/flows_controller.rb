@@ -9,6 +9,7 @@ class FlowsController < ApplicationController
     else
       @issue = Issue.new
     end
+    @issue.articles.build
   end
 
   def create
