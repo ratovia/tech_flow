@@ -1,12 +1,13 @@
 <div class="issue_form">
   <%= form_with model: issue, url: url, local: true do |f| %>
     <%= f.fields_for issue.article do |i| %>
+      <%= i.hidden_field :id %>
       <div class="title_box">
         <%= i.text_area :title, class: "title", placeholder:"title" %>
       </div>
       <div class="content_box">
         <%# <%= i.text_area :content, class: "content", placeholder:"マークダウン記述使えます" %>
-        <textarea name="issue[article[content]]" class="content" v-model='input' placeholder="マークダウン記述使えます"></textarea>
+        <textarea id="issue_article_content" name="issue[article[content]]" class="content" v-model='input' placeholder="マークダウン記述使えます"></textarea>
         <div v-html='input | mark' class="content_mark markdown-body"></div>
       </div>
     <% end %>
@@ -14,8 +15,32 @@
     <div class="submit_btn">
       <%= f.submit class: "submit", value: "作成する" %>
     </div>
+    <div id="handleOpen">過去の記事から参照する</div>
     <%= link_to "戻る", root_path, data: {"turbolinks" => false} %>
   <% end %>
+</div>
+<div class="articles" id="articles-area">
+  <div id="handleClose">閉じる</div>
+  <div class="articles__inner">
+    <table id="articles-table" border="1">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>タイトル</th>
+          <th>内容</th>
+          <th>作成日時</th>
+        </tr>
+      </thead>
+      <% @articles.each do |article| %>
+        <tr>
+          <td id="articles-table__id"><%= article.id %></td>
+          <td id="articles-table__title"><%= article.title %></td>
+          <td id="articles-table__content"><%= article.content %></td>
+          <td id="articles-table__created_at"><%= article.created_at %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>  
 </div>
 
 <script type="text/javascript">
@@ -30,4 +55,42 @@
       },
     });
   };
+  window.addEventListener("load", () => {
+    const handleOpenBtn = document.getElementById('handleOpen');
+    const articles = document.getElementById('articles-area');
+    const handleCloseBtn = document.getElementById('handleClose');
+
+
+    const toggleArticlesArea = () => {
+      articles.classList.toggle('is-show');
+      issueArticleTitle.setAttribute("disabled", false)
+      issueArticleContent.setAttribute("disabled", false)
+    }
+    handleOpenBtn.addEventListener("click", () => {
+      toggleArticlesArea()
+    })
+    handleCloseBtn.addEventListener("click", () => {
+      toggleArticlesArea()
+    })
+
+    const issueArticleId = document.getElementById('issue_article_id')
+    const issueArticleTitle = document.getElementById('issue_article_title')
+    const issueArticleContent = document.getElementById('issue_article_content')
+    const trElements = document.getElementsByTagName('tr');
+    
+    Array.prototype.forEach.call(trElements, (tr) => {
+      tr.addEventListener("click", (e) => {
+        const trElement = e.target.parentElement
+        id = trElement.querySelector('#articles-table__id').textContent
+        title = trElement.querySelector('#articles-table__title').textContent
+        content = trElement.querySelector('#articles-table__content').textContent
+        issueArticleId.value = id
+        issueArticleTitle.value = title
+        issueArticleContent.value = content
+        issueArticleTitle.setAttribute("disabled", true)
+        issueArticleContent.setAttribute("disabled", true)
+        toggleArticlesArea()
+      })
+    })
+  })
 </script>
