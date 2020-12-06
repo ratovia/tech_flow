@@ -13,7 +13,7 @@
       </div>
       <p class="link">
       <a v-bind:href="'/flows/' + issue.id + '/edit'" v-if="isShow == issue.id" >編集</a>
-      <a v-bind:href="'/flows/' + issue.id " v-if="isShow == issue.id" data-method="delete" data-confirm="削除しますか？【注意】この先のフローも削除されます" >削除</a>
+      <a v-if="isShow == issue.id" :data-index="issue.id" @click="deleteClick">削除</a>
       </p>
     </li>
     <li class="child" >
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   data: function () {
     return {
@@ -44,6 +45,13 @@ export default {
       } else{
         this.title = "test"
       }
+    },
+
+    deleteClick: function (event) {
+      window.confirm("削除しますか？【注意】この先のフローも削除されます")
+      const index = event.target.dataset.index 
+      axios.delete(`/flows/${index}`)
+      location.reload(true);
     },
 
     compiledMarkdown: function(content) {

@@ -1,4 +1,6 @@
 class FlowsController < ApplicationController
+  protect_from_forgery except: [:destroy]
+
   def index
   end
 
