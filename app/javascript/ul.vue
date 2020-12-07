@@ -48,10 +48,12 @@ export default {
     },
 
     deleteClick: function (event) {
-      window.confirm("削除しますか？【注意】この先のフローも削除されます")
-      const index = event.target.dataset.index 
-      axios.delete(`/flows/${index}`)
-      location.reload(true);
+      const result = confirm("削除しますか？【注意】この先のフローも削除されます")
+      if (result) {
+        const index = event.target.dataset.index 
+        axios.delete(`/flows/${index}`)
+        location.reload(true)
+      }
     },
 
     compiledMarkdown: function(content) {
