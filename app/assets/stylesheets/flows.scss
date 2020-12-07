@@ -61,3 +61,33 @@ header {
     }
   }
 }
+
+.articles {
+  display: none;
+  width: 100%;
+  z-index: 20;
+  overflow: auto;
+
+  &__inner {
+    width: 100%;
+    overflow: auto;
+    background-color: #fff;
+    z-index: 22;
+  }
+}
+
+.is-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#articles-table {
+  tbody{
+    tr:hover{
+      background-color: rgb(147, 240, 181);
+    }
+  }
+}
+
