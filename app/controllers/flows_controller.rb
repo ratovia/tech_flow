@@ -18,7 +18,7 @@ class FlowsController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @issue.ancestry = nil if @issue.ancestry == ""
-    if article_params&.dig(:id)
+    if article_params&.dig(:id) != ""
       article = Article.find(article_params[:id])
       @issue.article = article
     else
