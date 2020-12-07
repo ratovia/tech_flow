@@ -1,4 +1,6 @@
 class FlowsController < ApplicationController
+  protect_from_forgery except: [:destroy]
+
   def index
   end
 
@@ -40,6 +42,15 @@ class FlowsController < ApplicationController
     else
       @issue.article.update(article_params)
     end
+    redirect_to root_path
+  end
+
+  def destroy
+    @issue = Issue.find(params[:id])
+    @issue.children.each do |child|
+      child.destroy
+    end
+    @issue.destroy
     redirect_to root_path
   end
 

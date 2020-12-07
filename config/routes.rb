@@ -13,5 +13,5 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :flows, only: [:new, :create, :edit, :update]
+  resources :flows, only: [:new, :create, :edit, :update, :destroy]
 end
