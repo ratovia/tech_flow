@@ -34,9 +34,9 @@ class FlowsController < ApplicationController
   def destroy
     @issue = Issue.find(params[:id])
     @issue.children.each do |child|
-      child.article.destroy
+      child.destroy
     end
-    @issue.article.destroy
+    @issue.destroy
     redirect_to root_path
   end
 
