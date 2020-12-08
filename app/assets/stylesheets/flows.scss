@@ -15,12 +15,11 @@ header {
 }
 .issue_form {
   height: 100%;
-  width: 100%;
-  margin-top: 30px;
+  margin: 10px 20px 10px 20px;
   .title_box {
     height: 80px;
-    width: 800px;
-    margin: auto;
+    width: 100%;
+
     .title {
       font-size: 22px;
       padding: 15px;
@@ -30,13 +29,25 @@ header {
     }
   }
   .content_box {
-    height: 500px;
-    width: 800px;
-    margin: auto;
+    height: 620px;
+    width: 100%;
+    display:flex;
+    margin-top:10px;
     .content {
       padding: 15px;
       height: 100%;
-      width: 100%;
+      width: 50%;
+      font-size: 1.2rem;
+      overflow: scroll;
+      margin-right:10px;
+    }
+    .content_mark{
+      height:100%;
+      width:50%;
+      border: solid 1px black;
+      padding:15px;
+      overflow: scroll;
+      margin-left:10px;
     }
   }
   .submit_btn {
@@ -51,4 +62,32 @@ header {
   }
 }
 
+.articles {
+  display: none;
+  width: 100%;
+  z-index: 20;
+  overflow: auto;
+
+  &__inner {
+    width: 100%;
+    overflow: auto;
+    background-color: #fff;
+    z-index: 22;
+  }
+}
+
+.is-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#articles-table {
+  tbody{
+    tr:hover{
+      background-color: rgb(147, 240, 181);
+    }
+  }
+}
 
